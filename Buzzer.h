@@ -1,6 +1,6 @@
 #include "tm4c123gh6pm.h"
+#include "lED_TIMER.h"
 
-
-void Buzzer_Init();
-void buzzer_on();
-void buzzer_off();
+void Buzzer_init();
+void Buzzer();
+void Buzzer_Blink();
