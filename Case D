@@ -1,0 +1,214 @@
+	case'D':
+label8:		LCD_vSendString(arr_cooking);
+					Delay(2000);
+					while(keypad_v8Read()==0x00){};
+					LCD_ClearScreen();
+					if(keypad_v8Read()=='0' | keypad_v8Read()=='1' | keypad_v8Read()=='3' | keypad_v8Read()=='5' | keypad_v8Read()=='7' | keypad_v8Read()=='9' |keypad_v8Read()=='2'  | keypad_v8Read()=='4' | keypad_v8Read()=='6' | keypad_v8Read()=='8' )
+					{
+						A= keypad_v8Read();
+						timer[4]= A;
+						//LCD_ClearScreen();
+						LCD_vSendString(timer);
+						Delay(1000);
+						while(keypad_v8Read()==0x00){};
+						
+						if(keypad_v8Read()=='0' | keypad_v8Read()=='1' | keypad_v8Read()=='3' | keypad_v8Read()=='5' | keypad_v8Read()=='7' | keypad_v8Read()=='9' |keypad_v8Read()=='2'  | keypad_v8Read()=='4' | keypad_v8Read()=='6' | keypad_v8Read()=='8' )
+						{
+							B= keypad_v8Read();
+							timer[3]= timer[4];
+							timer[4]=B;
+							//LCD_ClearScreen();
+							LCD_vSendString(timer);
+							Delay(1000);
+							while(keypad_v8Read()==0x00){};
+
+							if(keypad_v8Read()=='0' | keypad_v8Read()=='1' | keypad_v8Read()=='3' | keypad_v8Read()=='5' | keypad_v8Read()=='7' | keypad_v8Read()=='9' |keypad_v8Read()=='2'  | keypad_v8Read()=='4' | keypad_v8Read()=='6' | keypad_v8Read()=='8' )
+							{
+								if(keypad_v8Read()>'5')
+								{
+									goto labelz;
+								}
+								C=keypad_v8Read();
+								timer[1]= timer[3];
+								timer[3]= timer[4];
+								timer[4]= C;
+								//LCD_ClearScreen();
+								LCD_vSendString(timer);
+								Delay(1000);
+								while(keypad_v8Read()==0x00){};
+								
+
+								if(keypad_v8Read()=='0' | keypad_v8Read()=='1' | keypad_v8Read()=='3' | keypad_v8Read()=='5' | keypad_v8Read()=='7' | keypad_v8Read()=='9' |keypad_v8Read()=='2'  | keypad_v8Read()=='4' | keypad_v8Read()=='6' | keypad_v8Read()=='8' )
+								{
+									D= keypad_v8Read();
+									timer[0]= timer[1];
+									timer[1]= timer[3];
+									timer[3]= timer[4];
+									timer[4]= D;
+									//LCD_ClearScreen();
+									LCD_vSendString(timer);
+									Delay(1000);
+								
+									if((timer[0]>='3'&&timer[1]>'0')||(timer[0]>='3'&&timer[3]>'0')||(timer[0]>='3'&&timer[4]>'0'))
+									{
+										goto labelz;
+									}
+									
+									/*	if(A>='3')
+										{
+											if(B>='0')
+											{
+												if(C>='0')
+												{
+													if(D>'0')
+													{
+														LCD_ClearScreen();
+													  goto labelm;
+													}
+													
+												}
+											}
+										}*/
+									while(SW1()==1&&SW3()==0x00){};
+									
+									
+
+
+										i=charToint(A);
+										j=charToint(B);
+										x=charToint(C);
+										z=charToint(D);
+										//goto label10;
+
+									for(;i>=0;i--)
+									{
+										for (;j>=0;j--)
+										{
+											for (;x>=0;x--)
+											{
+												for(;z>=0;z--)
+												{
+//label10:									
+												while (SW1()==1){};
+					
+											if((SW2()==0x0) || (SW3()==0x00))
+											{
+												goto labels;
+								
+											}
+														timer[0]=i+'0';
+														timer[1]=j+'0';
+														timer[3]=x+'0';
+														timer[4]=z+'0';
+														LCD_vSendString(timer);
+														Led_On();
+														Delay(1000);
+														LCD_ClearScreen();
+													
+												/*else
+													{
+														Led_Off();
+														break;
+													}*/
+												}
+												z= 9;
+											}
+												x= 5;
+										}
+										j=9;
+									}
+               goto labelu;
+							/*	while(SW1()==1 & SW2()==1)
+								{
+label11:					GPIO_PORTF_DATA_R |= 0x0E ;
+									Delay(1000);
+									GPIO_PORTF_DATA_R &=~0x0E ;
+									Delay(1000);
+									if(SW3()==1)
+									{
+										goto label11;
+									}
+									else 
+										goto label10;
+								}
+
+
+								if( SW2()==0)
+								{
+									LCD_ClearScreen();
+									goto label10;
+
+								}
+								else if(SW1()==0)
+								{
+									LCD_ClearScreen();
+									Led_Off();
+								}*/
+labels:		while(1)
+					{
+					LCD_ClearScreen();
+					LCD_vSendString(arr_pause);
+					GPIO_PORTF_DATA_R |= 0x0E ;
+					Delay(1000);
+					GPIO_PORTF_DATA_R &=~0X0E ;
+					Delay(1000);
+						if(SW3()==0)
+						{
+							LCD_ClearScreen();
+							goto label;
+						}
+					if(SW2()==0)
+					{
+						LCD_ClearScreen();
+						goto labelm;
+					}
+					else if(SW1()==0)
+						goto label;
+					}
+			
+labelu:		LCD_ClearScreen();
+					LCD_vSendString(arr_done);
+					Delay(1000);
+					LCD_ClearScreen();
+					Buzzer();
+					Buzzer_Blink();
+								
+labelz:		LCD_ClearScreen();			
+					break;
+					
+
+
+								
+						
+				}
+				else
+				{
+					LCD_ClearScreen();
+					LCD_vSendString(arr_ERR);
+					Delay(2000);
+					LCD_ClearScreen();
+					goto label8;
+				}
+			}
+		}
+	}
+
+
+				case 0xFF:
+					break;
+
+
+				default:
+					LCD_vSendString(arr_ERR);
+					Delay(2000);
+					LCD_ClearScreen();
+					break;
+			}
+		}
+	}
+}
+
+
+
+ //elmafrood break btetla32 men loop wa7da 
+	//lw madostesh 7aga we wesel le 0000 , hyatela3 men fpll wloop wehay5oah
